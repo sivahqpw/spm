@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course's Marketplace Assets</title>
+    <style>
+        /* Design Strategy: Professional, Reliable, and Clean */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #2563eb;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --success-green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-slate);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            border-left: 5px solid var(--accent-blue);
+        }
+
+        /* Input Section */
+        .input-section {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary-slate);
+            font-size: 0.95rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: vertical;
+            transition: all 0.3s;
+            background-color: #fff;
+        }
+
+        .small-box { min-height: 60px; }
+        .mid-box { min-height: 120px; }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Prompt Boxes */
+        .prompt-wrapper {
+            margin-bottom: 30px;
+        }
+
+        .prompt-box {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.5;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            background: var(--success-green);
+            color: var(--white);
+            border: none;
+            padding: 6px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.8rem;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #059669;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: none;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .input-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>Course's Marketplace Assets</h1>
+    </div>
+</header>
+
+<main class="container">
+    <div class="welcome-card">
+        <p>নিচে প্রয়োজনীয় তথ্যগুলো প্রদান করুন। আপনার দেওয়া তথ্যের ভিত্তিতে ৫টি প্রম্পট স্বয়ংক্রিয়ভাবে তৈরি হয়ে যাবে।</p>
+    </div>
+
+    <!-- Inputs Section -->
+    <div class="input-section">
+        <div class="input-grid">
+            <div class="input-group">
+                <label for="priceInput">[price]</label>
+                <textarea id="priceInput" class="small-box" placeholder="উদা: ৪৯৯" oninput="updateAllPrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label for="courseNameInput">[Course Name]</label>
+                <textarea id="courseNameInput" class="small-box" placeholder="উদা: স্মার্টফোন ভিডিও এডিটিং" oninput="updateAllPrompts()"></textarea>
+            </div>
+        </div>
+        <div class="input-group">
+            <label for="tocInput">[Insert the Table of Contents Here]</label>
+            <textarea id="tocInput" class="mid-box" placeholder="আপনার কোর্সের মডিউল বা সূচিপত্র এখানে দিন..." oninput="updateAllPrompts()"></textarea>
+        </div>
+        <div class="input-group" style="margin-bottom: 0;">
+            <label for="originalTextInput">[original text of sales copy]</label>
+            <textarea id="originalTextInput" class="mid-box" placeholder="আপনার তৈরি করা সেলস কপির মূল টেক্সট এখানে দিন..." oninput="updateAllPrompts()"></textarea>
+        </div>
+    </div>
+
+    <!-- Prompts Display -->
+    <div id="promptsContainer">
+        
+        <!-- Prompt 1 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>PROMPT #1: Full Sales Copy Generation</h3>
+                    <button class="copy-btn" onclick="copyText('p1')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="p1"></div>
+            </div>
+        </div>
+
+        <!-- Prompt 2 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>PROMPT #2: Gumroad Sales Page</h3>
+                    <button class="copy-btn" onclick="copyText('p2')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="p2">Convert this into a Gumroad Sales Page.</div>
+            </div>
+        </div>
+
+        <!-- Prompt 3 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>PROMPT #3: Landing Page Layout</h3>
+                    <button class="copy-btn" onclick="copyText('p3')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="p3">Convert this into a Landing Page.</div>
+            </div>
+        </div>
+
+        <!-- Prompt 4 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>PROMPT #4: Variation Generator</h3>
+                    <button class="copy-btn" onclick="copyText('p4')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="p4"></div>
+            </div>
+        </div>
+
+        <!-- Prompt 5 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>PROMPT #5: 5-Day Email Sequence</h3>
+                    <button class="copy-btn" onclick="copyText('p5')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="p5"></div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+<script>
+    function updateAllPrompts() {
+        const price = document.getElementById('priceInput').value.trim() || "[price]";
+        const name = document.getElementById('courseNameInput').value.trim() || "[Course Name]";
+        const toc = document.getElementById('tocInput').value.trim() || "[Insert the Table of Contents Here]";
+        const originalText = document.getElementById('originalTextInput').value.trim() || "[original text of sales copy]";
+
+        // Prompt 1
+        const p1Template = `ROLE
+
+You are an expert Direct-Response Copywriter, Course Marketing Strategist, Digital Product Launch Specialist, and Conversion-Focused Sales Funnel Writer.
+
+Your expertise includes creating persuasive, high-converting sales copy for online courses that clearly communicates value, addresses customer pain points, builds trust, overcomes objections, and motivates readers to take action.
+
+---
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do not translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+---
+
+TASK
+
+Please read the Table of Contents below and write sales copy for a ₹${price} course titled "${name}".
+
+Include:
+
+* A headline that speaks directly to the target audience.
+* Three pain points they are experiencing.
+* A compelling big promise with a specific result achieved within a specific timeframe.
+* Seven benefit-driven bullet points.
+* Three testimonials (clearly marked as placeholders).
+* A risk-reversal statement or guarantee.
+* Three scarcity elements.
+* A clear and compelling call to action.
+
+---
+
+TABLE OF CONTENTS
+
+${toc}`;
+
+        // Prompt 4
+        const p4Template = `Give me ten variations of this headline, subject line, or call to action: 
+
+${originalText} 
+
+Make them progressively more bold and direct.
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do not translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.`;
+
+        // Prompt 5
+        const p5Template = `Create a five-day email sequence promoting this ₹${price} course titled "${name}". 
+Day one is value-based introducing the problem. 
+Day two is a story about transformation. 
+Day three is social proof and testimonials. 
+Day four is objection handling. 
+Day five is urgency and final call. 
+Write in a slightly cheeky tone.
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do not translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.`;
+
+        document.getElementById('p1').innerText = p1Template;
+        document.getElementById('p4').innerText = p4Template;
+        document.getElementById('p5').innerText = p5Template;
+    }
+
+    function copyText(id) {
+        const text = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 2000);
+        });
+    }
+
+    // Initialize
+    updateAllPrompts();
+</script>
+
+</body>
+</html>
