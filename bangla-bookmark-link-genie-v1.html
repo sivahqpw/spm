@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangla Bookmark Link Genie V1.0</title>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID_HERE'); // Replace with your actual Pixel ID
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #ef6c57;
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+            --border: #ddd;
+            --code-bg: #2d2d2d;
+            --code-text: #f8f8f2;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .input-section, .output-section {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 10px;
+        }
+
+        .field-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: 'Hind Siliguri', sans-serif;
+            resize: vertical;
+            min-height: 40px;
+        }
+
+        .prompt-container {
+            margin-bottom: 25px;
+        }
+
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #eee;
+            padding: 8px 15px;
+            border-radius: 4px 4px 0 0;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 15px;
+            border-radius: 0 0 4px 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin-top: 0;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 850px) {
+            .container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Bangla Bookmark Link Genie V1.0</h1>
+</header>
+
+<div class="container">
+    <!-- INPUT FIELDS -->
+    <div class="input-section">
+        <h2>Multi-lines Dynamic Input Fields</h2>
+        
+        <div class="field-group">
+            <label>[Category Number]</label>
+            <textarea id="in-cat-num" placeholder="e.g. 1">1</textarea>
+        </div>
+        
+        <div class="field-group">
+            <label>[Step Number]</label>
+            <textarea id="in-step-num" placeholder="e.g. 1">1</textarea>
+        </div>
+        
+        <div class="field-group">
+            <label>[Task Name]</label>
+            <textarea id="in-task-name" placeholder="e.g. মার্কেট রেডি">মার্কেট রেডি</textarea>
+        </div>
+        
+        <div class="field-group">
+            <label>[Target URL]</label>
+            <textarea id="in-url" placeholder="https://...">#</textarea>
+        </div>
+        
+        <div class="field-group">
+            <label>[Sub-Step Number]</label>
+            <textarea id="in-sub-step" placeholder="e.g. G">G</textarea>
+        </div>
+        
+        <div class="field-group">
+            <label>[Link Name]</label>
+            <textarea id="in-link-name" placeholder="e.g. Link Title">Link Title</textarea>
+        </div>
+        
+        <div class="field-group">
+            <label>[bookmark-note]</label>
+            <textarea id="in-note" rows="4" placeholder="Enter multi-line notes...">From: 
+To: 
+Purpose: 
+Using: </textarea>
+        </div>
+    </div>
+
+    <!-- PROMPT OUTPUTS -->
+    <div class="output-section">
+        
+        <!-- Prompt #1 -->
+        <div class="prompt-container">
+            <div class="prompt-header">
+                <span>Prompt#1 (New Category)</span>
+                <button class="copy-btn" onclick="copyToClipboard('prompt1')">Copy</button>
+            </div>
+            <pre id="prompt1"></pre>
+        </div>
+
+        <!-- Prompt #2 -->
+        <div class="prompt-container">
+            <div class="prompt-header">
+                <span>Prompt#2 (New Link in a Category)</span>
+                <button class="copy-btn" onclick="copyToClipboard('prompt2')">Copy</button>
+            </div>
+            <pre id="prompt2"></pre>
+        </div>
+
+        <!-- Prompt #3 -->
+        <div class="prompt-container">
+            <div class="prompt-header">
+                <span>Prompt#3 (Example of Inputs)</span>
+                <button class="copy-btn" onclick="copyToClipboard('prompt3')">Copy</button>
+            </div>
+            <pre id="prompt3">
+[URL of Check Grammar of Question]
+From: Question
+To: 1, Question + 2, Content Title
+Purpose: This and that
+Using: PGP: Check Grammar of Question Link: 
+
+[URL of Parash Pathar]
+From: Question (Edited)
+To: Process
+Purpose: This and that
+Using: PGP: Parash Pathar Link: 
+
+[URL of To-Do List Genie]
+From: Process
+To: To-Do List
+Purpose: This and that
+Using: PGP: To-Do List Genie 
+
+[URL of To-Do List Genie]
+From: To-Do List
+To: Table Of Content
+Purpose: This and that
+Using: PGP: To-Do List Genie</pre>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const inputs = [
+        'in-cat-num', 'in-step-num', 'in-task-name', 
+        'in-url', 'in-sub-step', 'in-link-name', 'in-note'
+    ];
+
+    function updatePrompts() {
+        const catNum = document.getElementById('in-cat-num').value;
+        const stepNum = document.getElementById('in-step-num').value;
+        const taskName = document.getElementById('in-task-name').value;
+        const url = document.getElementById('in-url').value;
+        const subStep = document.getElementById('in-sub-step').value;
+        const linkName = document.getElementById('in-link-name').value;
+        const note = document.getElementById('in-note').value;
+
+        // Prompt 1 Template
+        const p1Template = `<!-- Category ${catNum} -->
+<div class="category-card">
+    <div class="category-header">
+        <h3><i class="fa-solid fa-chevron-down"></i> S#${stepNum} ${taskName}</h3>
+    </div>
+    <div class="bookmark-list">
+        <div class="bookmark-wrapper">
+            <a href="${url}" class="bookmark-item">
+                <span class="icon-circle">${subStep}</span> ${linkName}
+            </a>
+            <div class="bookmark-note">${note}
+
+  </div>
+        </div>
+    </div>
+</div>`;
+
+        // Prompt 2 Template
+        const p2Template = `<div class="bookmark-wrapper">
+    <a href="${url}" class="bookmark-item">
+        <span class="icon-circle">${subStep}</span> ${linkName}
+    </a>
+    <div class="bookmark-note">${note}
+
+  </div>
+</div>`;
+
+        document.getElementById('prompt1').textContent = p1Template;
+        document.getElementById('prompt2').textContent = p2Template;
+    }
+
+    function copyToClipboard(id) {
+        const text = document.getElementById(id).textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Prompt copied to clipboard!');
+        });
+    }
+
+    // Attach listeners
+    inputs.forEach(id => {
+        document.getElementById(id).addEventListener('input', updatePrompts);
+    });
+
+    // Initial call
+    updatePrompts();
+</script>
+
+</body>
+</html>
