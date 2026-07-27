@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership with Low-Ticket PDF Product</title>
+    <style>
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #2563eb;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --success-green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-slate);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            border-left: 5px solid var(--accent-blue);
+        }
+
+        /* Input Section */
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+            background: var(--white);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary-slate);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: vertical;
+            min-height: 80px;
+            transition: all 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Prompt Boxes */
+        .prompt-wrapper {
+            margin-bottom: 30px;
+        }
+
+        .prompt-box {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.5;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            background: var(--success-green);
+            color: var(--white);
+            border: none;
+            padding: 6px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.8rem;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #059669;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: none;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .input-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>Membership with Low-Ticket PDF Product</h1>
+    </div>
+</header>
+
+<main class="container">
+    <div class="welcome-card">
+        <p>নিচে আপনার কাঙ্ক্ষিত <b>Topic</b> এবং <b>Transformation</b> প্রদান করুন। এর ফলে নিচের ৮টি প্রম্পট স্বয়ংক্রিয়ভাবে আপডেট হয়ে যাবে। প্রতিটি প্রম্পট আলাদাভাবে কপি করে ব্যবহার করুন।</p>
+    </div>
+
+    <!-- Dynamic Inputs -->
+    <div class="input-grid">
+        <div class="input-group">
+            <label for="topicInput">[Topic]</label>
+            <textarea id="topicInput" placeholder="উদা: Weight Loss for Busy Professionals" oninput="updateAllPrompts()"></textarea>
+        </div>
+        <div class="input-group">
+            <label for="transInput">[Desired Transformation]</label>
+            <textarea id="transInput" placeholder="উদা: Losing first 2kg and feeling energetic" oninput="updateAllPrompts()"></textarea>
+        </div>
+    </div>
+
+    <!-- Prompts Section -->
+    <div id="promptsContainer">
+        <!-- Prompt 1 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #1: Strategy & PDF Creation</h3>
+                    <button class="copy-btn" onclick="copyText('prompt1')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="prompt1"></div>
+            </div>
+        </div>
+
+        <!-- Prompt 2 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #2: Pillars & Pricing</h3>
+                    <button class="copy-btn" onclick="copyText('prompt2')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="prompt2"></div>
+            </div>
+        </div>
+
+        <!-- Prompt 3 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #3: Sales Copy</h3>
+                    <button class="copy-btn" onclick="copyText('prompt3')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="prompt3"></div>
+            </div>
+        </div>
+
+        <!-- Prompt 4 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #4: Gumroad Page</h3>
+                    <button class="copy-btn" onclick="copyText('prompt4')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="prompt4"></div>
+            </div>
+        </div>
+
+        <!-- Prompt 5 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #5: Landing Page</h3>
+                    <button class="copy-btn" onclick="copyText('prompt5')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="prompt5"></div>
+            </div>
+        </div>
+
+        <!-- Prompt 6 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #6: Split Testing</h3>
+                    <button class="copy-btn" onclick="copyText('prompt6')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="prompt6"></div>
+            </div>
+        </div>
+
+        <!-- Prompt 7 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #7: Email Sequence (PDF)</h3>
+                    <button class="copy-btn" onclick="copyText('prompt7')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="prompt7"></div>
+            </div>
+        </div>
+
+        <!-- Prompt 8 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #8: Email Sequence (Membership)</h3>
+                    <button class="copy-btn" onclick="copyText('prompt8')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="prompt8"></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+<script>
+    const templates = {
+        prompt1: `ROLE
+
+You are an expert content strategist, instructional designer, direct-response copywriter, and digital product creator.
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do not translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+INPUT
+
+The uploaded document.
+
+TASK
+
+Transform the uploaded content into a highly valuable, easy-to-follow, results-driven "[Topic]" PDF that helps buyers achieve a noticeable [Desired Transformation] in about 15 minutes and naturally guides them toward joining the membership.
+
+The PDF should deliver a quick win, build trust, demonstrate the value of the membership, and create a natural desire to continue the journey inside the membership without feeling overly promotional.
+
+RULES (MANDATORY)
+
+- Keep the content tightly focused on "[Topic]." Every section, example, exercise, checklist, template, and recommendation must directly support the promised 15-minute transformation.
+- Do not deviate from the core topic or introduce unrelated concepts, frameworks, or lessons unless they are essential to understanding "[Topic]."
+- Design the PDF to help buyers achieve one specific, meaningful quick win within approximately 15 minutes.
+- Every page must contribute directly to the promised outcome. Remove anything that does not help the buyer achieve the desired transformation.
+- Treat the PDF as a bridge—not a complete solution. It should deliver genuine standalone value while naturally creating a desire to continue the journey inside the membership.
+- Do not artificially withhold essential information to force a sale. Instead, fully deliver the promised quick win while positioning the membership as the logical next step for deeper implementation, ongoing support, additional resources, and long-term results.
+
+The buyer journey should follow this sequence:
+
+[Topic]
+↓
+15-Minute Transformation
+↓
+[Desired Transformation]
+↓
+Lead Magnet
+↓
+Low-Ticket PDF Product
+↓
+Membership`,
+
+        prompt2: `Before we move on to the next step, please provide the content pillars and a list of deliverables for the membership. What would be the ideal price for it?
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do not translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.`,
+
+        prompt3: `Write sales copy for a $[price] product about this membership. 
+Include a headline that calls out the specific audience, three pain points they're experiencing, the big promise with a specific result in a specific timeframe, seven benefit bullets, three testimonials marked as placeholders, risk reversal or guarantee, three scarcity elements, and a clear call to action.
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do not translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.`,
+
+        prompt4: `Convert this into a Gumroad Sales Page`,
+
+        prompt5: `Convert this into a Landing Page`,
+
+        prompt6: `Give me ten variations of this [headline, subject line, or call to action]: 
+[original text]. 
+Make them progressively more bold and direct.
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do not translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.`,
+
+        prompt7: `Create a five-day email sequence promoting this $[Price] Low-Ticket PDF Product about [about the Low-Ticket PDF Product]. 
+Day one is value-based introducing the problem. 
+Day two is a story about transformation. 
+Day three is social proof and testimonials. 
+Day four is objection handling. 
+Day five is urgency and final call. 
+Write in a conversational British style with a slightly cheeky tone.`,
+
+        prompt8: `Create a five-day email sequence promoting a $[Price] Membership about [about the Membership]. 
+Day one is value-based introducing the problem. 
+Day two is a story about transformation. 
+Day three is social proof and testimonials. 
+Day four is objection handling. 
+Day five is urgency and final call. 
+Write in a conversational British style with a slightly cheeky tone.`
+    };
+
+    function updateAllPrompts() {
+        const topic = document.getElementById('topicInput').value.trim() || "[Topic]";
+        const trans = document.getElementById('transInput').value.trim() || "[Desired Transformation]";
+
+        for (let key in templates) {
+            let content = templates[key]
+                .replaceAll("[Topic]", topic)
+                .replaceAll("[Desired Transformation]", trans);
+            
+            document.getElementById(key).innerText = content;
+        }
+    }
+
+    function copyText(id) {
+        const text = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 2000);
+        });
+    }
+
+    // Initialize on load
+    updateAllPrompts();
+</script>
+
+</body>
+</html>
