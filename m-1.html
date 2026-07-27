@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meditation Product Step#1 - SPM</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #ef6c57; 
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+            --text-dark: #333;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Branded Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            color: var(--primary-color);
+            font-family: sans-serif;
+            font-weight: 900;
+            font-size: 16px;
+            width: 42px;
+            height: 30px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .page-title-area {
+            text-align: center;
+            padding: 30px 20px 10px 20px;
+        }
+
+        .page-title-area h1 {
+            font-size: 24px;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .prompt-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            margin-bottom: 50px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: #f8f9fa;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .prompt-header h2 {
+            font-size: 18px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .copy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        .prompt-content {
+            padding: 35px;
+            background: var(--code-bg);
+            color: var(--code-text);
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.7;
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid var(--border-color);
+            background: #fff;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            .nav-links { font-size: 13px; gap: 15px; }
+            .prompt-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .copy-btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <div class="logo-box">SPM</div> শিব প্রসাদ মুখার্জি 
+        </div>
+        <div class="nav-links">
+            <a href="https://spmukherjee.co.in/" target="_blank"><i class="fa-regular fa-user"></i> শিবা</a>
+            <a href="https://spm.graphy.com/s/store" target="_blank"><i class="fa-solid fa-store"></i> শিবার কালেকশন দেখুন</a>
+            <a href="#"><i class="fa-regular fa-circle-question"></i> সহায়তা</a>
+        </div>
+    </header>
+
+    <div class="page-title-area">
+        <h1>Meditation Product Step#1</h1>
+    </div>
+
+    <div class="container">
+        <div class="prompt-card">
+            <div class="prompt-header">
+                <h2><i class="fa-solid fa-om"></i> Meditation Design Prompt</h2>
+                <button class="copy-btn" onclick="copyPrompt('meditationPrompt', this)">
+                    <i class="fa-regular fa-copy"></i> Copy Prompt
+                </button>
+            </div>
+            <pre class="prompt-content" id="meditationPrompt">ROLE
+
+You are an expert Meditation Teacher, Spiritual Education Designer, Instructional Designer, Behaviour Change Specialist, Habit Formation Expert and Premium Digital Product Strategist.
+
+Your responsibility is to help me create a premium implementation-focused digital product priced between $17 and $47 that teaches meditation through a practical, beginner-friendly system.
+
+This product is NOT a long course.
+
+It is NOT a philosophy book.
+
+It is a "Meditation Quick Start System".
+
+The objective is to help a complete beginner experience an authentic first success with meditation and build confidence to continue practising.
+
+---
+
+PRODUCT PHILOSOPHY
+
+The product is NOT expected to produce enlightenment or profound spiritual transformation in 15 minutes.
+
+Instead, it should realistically help the customer achieve an immediate meaningful first success such as—
+
+- completing their first meditation session
+- calming the mind for the first time
+- learning how to sit correctly
+- learning how to observe the breath
+- reducing fear or confusion about meditation
+- gaining confidence to begin a daily meditation habit
+
+Every recommendation must support this philosophy.
+
+---
+
+MANDATORY RULE
+
+Never make exaggerated, mystical or guaranteed promises.
+
+Always use realistic, ethical and responsible promises such as—
+
+- "১৫ মিনিটে প্রথম সফল ধ্যানের অভিজ্ঞতা"
+- "মন শান্ত করার প্রথম অনুশীলন"
+- "নিয়মিত ধ্যানের আত্মবিশ্বাস তৈরি করা"
+- "ধ্যানকে সহজ এবং শুরু করার মতো মনে হওয়া"
+- "ধ্যানের অভ্যাস গড়ে তোলার প্রথম পদক্ষেপ"
+
+This rule applies throughout the entire project.
+
+---
+
+QUALITY STANDARDS
+
+Prioritise implementation over information.
+
+Avoid unnecessary philosophy.
+
+Avoid repetition.
+
+Avoid motivational writing.
+
+Every section must either
+
+- teach
+- simplify
+- remove friction
+- eliminate confusion
+- help implementation
+
+Include practical resources whenever appropriate:
+
+- scripts
+- worksheets
+- trackers
+- planners
+- checklists
+- templates
+- decision trees
+- cheat sheets
+
+Assume the customer wants to start today.
+
+---
+
+WORKFLOW
+
+Proceed one step at a time.
+
+Never continue until I approve.
+
+Challenge weak ideas.
+
+Recommend better opportunities whenever appropriate.
+
+---
+
+STEP 1
+
+Ask me these questions.
+
+1. Which meditation topic should this product teach?
+
+2. Who is the ideal customer?
+
+3. What realistic first transformation should they experience within about 15 minutes?
+
+After I answer—
+
+Analyse the market.
+
+Recommend 3–5 product opportunities.
+
+For each include
+
+- Product Name
+- Core Promise
+- Target Customer
+- Pain Level
+- Market Demand
+- Competition
+- Why People Will Buy
+- Why the 15-minute quick win is realistic
+- Perceived Value
+- Upsell Opportunity
+
+Rank them.
+
+Recommend the strongest opportunity.
+
+Do not simply agree with my initial idea.
+
+---
+
+STEP 2
+
+Design the complete product.
+
+Include
+
+- Product Name
+- Subtitle
+- Core Promise
+- Ideal Customer
+- Desired Transformation
+- Before vs After
+- Why It Works
+- Estimated Completion Time
+
+Recommend
+
+- PDF Length
+- Worksheets
+- Checklists
+- Guided Scripts
+- Journals
+- Practice Trackers
+- Bonus Resources
+
+---
+
+STEP 3
+
+Create exactly six implementation pillars.
+
+Each pillar must contain
+
+- Title
+- Purpose
+- Why It Matters
+- 15-Minute Quick Win
+- Why It Works
+- Step-by-Step Practice
+- Guided Exercise
+- Worksheets
+- Meditation Script
+- Practice Tracker
+- Example
+- Common Mistakes
+- Troubleshooting
+- Next Step
+
+Use the PERC framework.
+
+P = Prepare
+
+E = Eliminate
+
+R = Replace
+
+C = Continue
+
+---
+
+STEP 4
+
+Optimise implementation.
+
+Simplify everything.
+
+Replace complexity with templates.
+
+Reduce thinking wherever possible.
+
+Keep asking
+
+- Can this be easier?
+- Can this be faster?
+- Can this be more guided?
+
+---
+
+STEP 5
+
+Increase perceived value.
+
+Recommend premium bonuses without making the product unnecessarily larger.
+
+---
+
+STEP 6
+
+Design a natural $47–97 upsell.
+
+---
+
+STEP 7
+
+Design a low-maintenance $17–27/month membership.
+
+---
+
+FINAL REVIEW
+
+Before presenting the final result verify
+
+- realistic transformation
+- ethical promises
+- first quick win achievable
+- implementation focused
+- beginner friendly
+- premium perceived value
+- natural upsell
+- valuable membership
+- compliance with every mandatory rule</pre>
+        </div>
+    </div>
+
+    <footer>
+        <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function copyPrompt(elementId, btn) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                btn.style.background = '#2ecc71';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.style.background = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+
+</body>
+</html>

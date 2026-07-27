@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philosophy - SPM</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #ef6c57; 
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+            --text-dark: #333;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Branded Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            color: var(--primary-color);
+            font-family: sans-serif;
+            font-weight: 900;
+            font-size: 16px;
+            width: 42px;
+            height: 30px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .page-title-area {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+        }
+
+        .page-title-area h1 {
+            font-size: 28px;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .prompt-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            margin-bottom: 40px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: #f8f9fa;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .prompt-header h2 {
+            font-size: 16px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .copy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .prompt-content {
+            padding: 30px;
+            background: var(--code-bg);
+            color: var(--code-text);
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid var(--border-color);
+            background: #fff;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            .nav-links { font-size: 13px; gap: 15px; }
+            .prompt-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .copy-btn { width: 100%; justify-content: center; }
+            .page-title-area h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <div class="logo-box">SPM</div> শিব প্রসাদ মুখার্জি 
+        </div>
+        <div class="nav-links">
+            <a href="https://spmukherjee.co.in/" target="_blank"><i class="fa-regular fa-user"></i> শিবা</a>
+            <a href="https://spm.graphy.com/s/store" target="_blank"><i class="fa-solid fa-store"></i> কালেকশন দেখুন</a>
+        </div>
+    </header>
+
+    <div class="page-title-area">
+        <h1>Philosophy</h1>
+    </div>
+
+    <div class="container">
+        
+        <!-- Prompt #1 -->
+        <div class="prompt-card">
+            <div class="prompt-header">
+                <h2><i class="fa-solid fa-anchor"></i> Prompt 1: Core Belief</h2>
+                <button class="copy-btn" onclick="copyPrompt('prompt1', this)">
+                    <i class="fa-regular fa-copy"></i> Copy Prompt
+                </button>
+            </div>
+            <pre class="prompt-content" id="prompt1">CORE BELIEF
+
+There is a single operating system that governs all activity, whether at the macro level—the universe—or at the micro level—individual things, living beings, and persons.
+
+When we, as individual beings, become lost in illusion, we forget that this one operating system governs all activity. As a result, we begin to believe that we, as individuals, are the doers.
+
+In reality, we do not need to abandon our individual activities. Rather, we need to bring them into alignment with this universal operating system.</pre>
+        </div>
+
+        <!-- Prompt #2 -->
+        <div class="prompt-card">
+            <div class="prompt-header">
+                <h2><i class="fa-solid fa-message"></i> Prompt 2: Core Message</h2>
+                <button class="copy-btn" onclick="copyPrompt('prompt2', this)">
+                    <i class="fa-regular fa-copy"></i> Copy Prompt
+                </button>
+            </div>
+            <pre class="prompt-content" id="prompt2">CORE MESSAGE
+
+Personal effort is not the execution of one's own opinions, decisions, or preferred methods. True effort is the faithful execution of the governing system or process.</pre>
+        </div>
+
+        <!-- Prompt #3 -->
+        <div class="prompt-card">
+            <div class="prompt-header">
+                <h2><i class="fa-solid fa-circle-nodes"></i> Prompt 3: What is Yoga</h2>
+                <button class="copy-btn" onclick="copyPrompt('prompt3', this)">
+                    <i class="fa-regular fa-copy"></i> Copy Prompt
+                </button>
+            </div>
+            <pre class="prompt-content" id="prompt3">WHAT IS YOGA IN THE LIGHT OF THE CORE BELIEF AND THE CORE MESSAGE
+
+There is a single operating system that governs all activity, whether at the macro level—the universe—or at the micro level—individual things, living beings, and persons.
+
+When we, as individual beings, become lost in illusion, we forget that this one operating system governs all activity. As a result, we begin to believe that we, as individuals, are the doers.
+
+In reality, we do not need to abandon our individual activities. Rather, we need to bring them into alignment with this universal operating system.
+
+The act of restoring that alignment is Yoga. Yoga is not about creating a connection; it is about recognizing and living in the connection that has always existed. This connection is already present, but through our own unawareness, we create obstacles that prevent it from functioning harmoniously. As a result, we suffer.
+
+All we need to do is become aware of its presence and role, then remove the obstacles created by our own unawareness so that it can function as it naturally does.
+
+Yoga does not create union. It restores awareness of the union that has always existed.</pre>
+        </div>
+
+        <!-- Prompt #4 -->
+        <div class="prompt-card">
+            <div class="prompt-header">
+                <h2><i class="fa-solid fa-book"></i> Prompt 4: Definitions</h2>
+                <button class="copy-btn" onclick="copyPrompt('prompt4', this)">
+                    <i class="fa-regular fa-copy"></i> Copy Prompt
+                </button>
+            </div>
+            <pre class="prompt-content" id="prompt4">DEFINITIONS
+(Notice that the operating system is a principle, not an active agent)
+
+Operating System
+
+> The operating system is the single underlying principle according to which reality functions at every level of existence. It is not an active agent that makes decisions or performs actions; it is the governing order with which all activity either aligns or conflicts.
+
+This definition distinguishes it from a conscious being, deity, or independent actor.
+
+---
+
+Governs
+
+Since a principle does not "control" in the way an agent does, "governs" should mean:
+
+> To govern is to establish the principles according to which reality functions and the consequences naturally arise.
+
+For example, gravity governs the motion of falling objects. Gravity does not *decide* that an object should fall; it is the principle according to which the motion occurs.
+
+Likewise, in your framework, the operating system does not choose or command. It is the principle according to which activity unfolds.
+
+---
+
+Doer
+
+The doer is the individual who mistakenly believes that personal opinions, decisions, and preferred methods are the ultimate source and authority of action, rather than recognizing that right action consists in aligning with the governing principle.
+
+Notice that this does not deny that individuals act. It denies that their independent opinions are the ultimate standard for right action.
+
+---
+
+Alignment
+
+> Alignment is the state in which one's understanding, decisions, and actions conform to the governing principle by which reality functions.
+
+---
+
+Yoga
+
+With your clarification, Yoga naturally becomes:
+
+> Yoga is the conscious restoration of alignment with the governing principle that already underlies reality. It does not create union; it restores awareness of the union that has always existed.</pre>
+        </div>
+
+        <!-- Prompt #5 -->
+        <div class="prompt-card">
+            <div class="prompt-header">
+                <h2><i class="fa-solid fa-pen-fancy"></i> Prompt 5: Sentence Revision</h2>
+                <button class="copy-btn" onclick="copyPrompt('prompt5', this)">
+                    <i class="fa-regular fa-copy"></i> Copy Prompt
+                </button>
+            </div>
+            <pre class="prompt-content" id="prompt5">One sentence I'd recommend revising
+
+Currently you write:
+
+> There is a single operating system that governs all activity...
+
+Now that you've clarified it is a principle, an even more precise version might be:
+
+> There is a single underlying principle—an operating system according to which all activity functions—whether at the macro level of the universe or the micro level of individual beings.
+
+or
+
+> There is a single operating system—the underlying principle according to which all activity functions—whether at the macro level of the universe or the micro level of individual beings.
+
+These versions reduce the risk that readers interpret "operating system" as an active entity.</pre>
+        </div>
+
+        <!-- Prompt #6 -->
+        <div class="prompt-card">
+            <div class="prompt-header">
+                <h2><i class="fa-solid fa-magnifying-glass"></i> Prompt 6: Final Observation</h2>
+                <button class="copy-btn" onclick="copyPrompt('prompt6', this)">
+                    <i class="fa-regular fa-copy"></i> Copy Prompt
+                </button>
+            </div>
+            <pre class="prompt-content" id="prompt6">A final observation
+
+Your framework is increasingly centering on a single distinction:
+
+* Reality functions according to a principle.
+* Ideas do not create that principle.
+* Actions do not change that principle.
+* Ideas and actions either align with that principle or conflict with it.
+* Yoga is the conscious restoration of that alignment.
+
+This is a coherent philosophical structure. The main work remaining is to define each key term so that every subsequent statement uses those terms consistently and leaves as little room for alternative interpretations as possible.</pre>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function copyPrompt(elementId, btn) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                btn.style.background = '#2ecc71';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.style.background = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+
+</body>
+</html>

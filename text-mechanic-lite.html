@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Mechanic Lite - Stackable</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --bg-color: #f4f7f6;
+            --border-color: #bdc3c7;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            gap: 20px;
+            overflow: hidden;
+        }
+
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        textarea {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            resize: none;
+            outline: none;
+        }
+
+        /* Controls Section */
+        .controls {
+            background: white;
+            padding: 20px;
+            margin: 0 20px 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+
+        .control-group label {
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #7f8c8d;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover { opacity: 0.9; }
+
+        .btn-copy { background-color: var(--success-color); width: 100%; margin-top: 10px; font-size: 1rem;}
+        .btn-clear { background-color: #e74c3c; }
+
+        .status-msg {
+            font-size: 0.8rem;
+            font-weight: normal;
+            color: #7f8c8d;
+        }
+
+        @media (max-width: 768px) {
+            .main-container { flex-direction: column; }
+            .controls { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Text Mechanic Lite</h1>
+</header>
+
+<div class="controls">
+    <div class="control-group">
+        <label>1. Case</label>
+        <button onclick="applyTransform('lower')">Convert to Lowercase</button>
+    </div>
+
+    <div class="control-group">
+        <label>2. Search & Replace</label>
+        <input type="text" id="findText" placeholder="Find...">
+        <input type="text" id="replaceText" placeholder="Replace...">
+        <button onclick="applyTransform('replace')">Replace All</button>
+    </div>
+
+    <div class="control-group">
+        <label>3. Prefix</label>
+        <input type="text" id="prefixText" placeholder="Text for start of lines...">
+        <button onclick="applyTransform('prefix')">Insert at Beginning</button>
+    </div>
+
+    <div class="control-group">
+        <label>4. Suffix</label>
+        <input type="text" id="suffixText" placeholder="Text for end of lines...">
+        <button onclick="applyTransform('suffix')">Insert at End</button>
+    </div>
+
+    <div class="control-group">
+        <label>Actions</label>
+        <button class="btn-clear" onclick="clearAll()">Reset Everything</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="column">
+        <h2>Input <span class="status-msg">(Source)</span></h2>
+        <textarea id="inputText" placeholder="Paste original text here..."></textarea>
+    </div>
+    <div class="column">
+        <h2>Result <span id="stackStatus" class="status-msg">(Stacking Active)</span></h2>
+        <textarea id="resultText" placeholder="Modifications will appear here..." readonly></textarea>
+        <button id="copyBtn" class="btn-copy" onclick="copyToClipboard()">Copy Result Text</button>
+    </div>
+</div>
+
+<script>
+    const inputArea = document.getElementById('inputText');
+    const resultArea = document.getElementById('resultText');
+    const copyBtn = document.getElementById('copyBtn');
+
+    /**
+     * Core logic: 
+     * If Result window is empty, use Input window.
+     * If Result window has text, perform the NEXT action on that text (stacking).
+     */
+    function getWorkableText() {
+        if (resultArea.value.length > 0) {
+            return resultArea.value;
+        }
+        return inputArea.value;
+    }
+
+    function applyTransform(type) {
+        let text = getWorkableText();
+        
+        if (!text && !inputArea.value) {
+            alert("Please enter some text in the Input window first.");
+            return;
+        }
+
+        switch(type) {
+            case 'lower':
+                resultArea.value = text.toLowerCase();
+                break;
+            
+            case 'replace':
+                const findStr = document.getElementById('findText').value;
+                const replaceStr = document.getElementById('replaceText').value;
+                if (!findStr) return alert("Enter text to find");
+                const escapedFindStr = findStr.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); 
+                const regex = new RegExp(escapedFindStr, 'g');
+                resultArea.value = text.replace(regex, replaceStr);
+                break;
+
+            case 'prefix':
+                const prefix = document.getElementById('prefixText').value;
+                resultArea.value = text.replace(/^/gm, prefix);
+                break;
+
+            case 'suffix':
+                const suffix = document.getElementById('suffixText').value;
+                resultArea.value = text.replace(/$/gm, suffix);
+                break;
+        }
+    }
+
+    function copyToClipboard() {
+        if (!resultArea.value) return;
+        navigator.clipboard.writeText(resultArea.value).then(() => {
+            const oldTxt = copyBtn.innerText;
+            copyBtn.innerText = "✓ Copied to Clipboard";
+            setTimeout(() => copyBtn.innerText = oldTxt, 2000);
+        });
+    }
+
+    function clearAll() {
+        inputArea.value = "";
+        resultArea.value = "";
+        document.getElementById('findText').value = "";
+        document.getElementById('replaceText').value = "";
+        document.getElementById('prefixText').value = "";
+        document.getElementById('suffixText').value = "";
+    }
+</script>
+
+</body>
+</html>

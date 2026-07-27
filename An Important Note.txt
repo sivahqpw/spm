@@ -1,0 +1,461 @@
+নিচের বিশ্লেষণটি **শুধুমাত্র প্রদত্ত PROMPT-এর ভেতরের নির্দেশনার উপর ভিত্তি করে** করা হয়েছে।
+
+---
+
+# 1. কোন কোন নির্দেশনা ChatGPT-কে একটি logical, effective এবং chronological workflow অনুসরণ করে product তৈরি করতে বাধ্য করে?
+
+মূলত এই prompt-এ পাঁচ ধরনের instruction একসাথে কাজ করছে—
+
+1. **Sequential Workflow Instructions**
+
+   * ChatGPT-কে ধাপে ধাপে এগোতে বাধ্য করে।
+
+2. **Progress Control Instructions**
+
+   * একটি ধাপ শেষ না করে পরের ধাপে যেতে নিষেধ করে।
+
+3. **Step Definitions**
+
+   * প্রতিটি ধাপে কী করতে হবে তা নির্দিষ্ট করে।
+
+4. **Ordered Output Requirements**
+
+   * প্রতিটি ধাপের ভেতরে কোন কোন উপাদান কী ক্রমে থাকবে তা নির্ধারণ করে।
+
+5. **Final Validation Instructions**
+
+   * পুরো workflow শেষ হওয়ার আগে একটি structured review করতে বাধ্য করে।
+
+---
+
+# 2. Prompt-এর সেই "exact sentences" যেগুলো এই structured, step-by-step workflow তৈরি করে
+
+নিচে শুধুমাত্র সেই sentence-গুলো দেওয়া হলো যেগুলো সরাসরি ChatGPT-কে chronological workflow অনুসরণ করতে নির্দেশ দেয়।
+
+---
+
+### 1.
+
+> **WORKFLOW**
+
+**Contribution**
+
+এটি prompt-এর একটি dedicated workflow section শুরু করে, যা পরবর্তী নির্দেশনাগুলোকে একটি execution sequence-এর অংশ হিসেবে প্রতিষ্ঠা করে।
+
+---
+
+### 2.
+
+> **Proceed one step at a time.**
+
+**Contribution**
+
+এটি সবচেয়ে গুরুত্বপূর্ণ sequencing instruction।
+
+এটি ChatGPT-কে একসাথে পুরো product তৈরি করতে নিষেধ করে এবং sequential execution বাধ্যতামূলক করে।
+
+---
+
+### 3.
+
+> **Never continue until I approve.**
+
+**Contribution**
+
+এটি workflow-কে interactive এবং gated করে।
+
+অর্থাৎ Step 1 শেষ না হওয়া পর্যন্ত Step 2 শুরু করা যাবে না।
+
+এটি chronological progression নিশ্চিত করে।
+
+---
+
+### 4.
+
+> **STEP 1**
+
+**Contribution**
+
+Workflow-এর প্রথম phase স্পষ্টভাবে নির্ধারণ করে।
+
+---
+
+### 5.
+
+> **Ask me these questions.**
+
+**Contribution**
+
+Execution-এর প্রথম action নির্ধারণ করে।
+
+Workflow শুরু হয় information gathering দিয়ে।
+
+---
+
+### 6.
+
+> **After I answer—**
+
+**Contribution**
+
+এটি dependency তৈরি করে।
+
+অর্থাৎ user input ছাড়া পরবর্তী কাজ শুরু করা যাবে না।
+
+---
+
+### 7.
+
+> **Analyse the market.**
+
+**Contribution**
+
+Information collection-এর পরে analysis করার নির্দেশ দেয়।
+
+Workflow-এর logical order বজায় রাখে।
+
+---
+
+### 8.
+
+> **Recommend 3–5 product opportunities.**
+
+**Contribution**
+
+Analysis-এর পরে recommendation করতে বলে।
+
+Decision-making analysis-এর পরে হচ্ছে।
+
+---
+
+### 9.
+
+> **For each include**
+
+**Contribution**
+
+প্রতিটি recommendation-এর জন্য fixed evaluation structure নির্ধারণ করে।
+
+---
+
+### 10.
+
+> **Rank them.**
+
+**Contribution**
+
+সব option তৈরি হওয়ার পরে comparative evaluation করতে নির্দেশ দেয়।
+
+---
+
+### 11.
+
+> **Recommend the strongest opportunity.**
+
+**Contribution**
+
+Ranking শেষ হওয়ার পরে final selection করতে বলে।
+
+---
+
+### 12.
+
+> **Do not simply agree with my initial idea.**
+
+**Contribution**
+
+Workflow-কে objective decision-making-এর দিকে নিয়ে যায়।
+
+User-এর প্রথম ধারণা থেকে সরাসরি এগিয়ে যেতে দেয় না।
+
+---
+
+### 13.
+
+> **STEP 2**
+
+**Contribution**
+
+Workflow-এর দ্বিতীয় phase শুরু করে।
+
+---
+
+### 14.
+
+> **Design the complete product.**
+
+**Contribution**
+
+Opportunity নির্বাচন হওয়ার পরে product design শুরু করতে বলে।
+
+Logical dependency বজায় রাখে।
+
+---
+
+### 15.
+
+> **Include**
+
+**Contribution**
+
+Product design-এর output structure নির্ধারণ করে।
+
+---
+
+### 16.
+
+> **Recommend**
+
+**Contribution**
+
+Core product design-এর পরে supporting resources design করতে বলে।
+
+---
+
+### 17.
+
+> **STEP 3**
+
+**Contribution**
+
+Workflow-এর তৃতীয় phase শুরু করে।
+
+---
+
+### 18.
+
+> **Create exactly six implementation pillars.**
+
+**Contribution**
+
+Complete product design হওয়ার পরে implementation framework তৈরি করতে বলে।
+
+---
+
+### 19.
+
+> **Each pillar must contain**
+
+**Contribution**
+
+প্রতিটি pillar-এর internal structure নির্ধারণ করে।
+
+---
+
+### 20.
+
+> **Use the PERC framework.**
+
+**Contribution**
+
+Implementation process-এর sequence standardise করে।
+
+---
+
+### 21.
+
+> **P = Prepare**
+
+**Contribution**
+
+Framework-এর প্রথম stage নির্ধারণ করে।
+
+---
+
+### 22.
+
+> **E = Eliminate**
+
+**Contribution**
+
+Framework-এর দ্বিতীয় stage নির্ধারণ করে।
+
+---
+
+### 23.
+
+> **R = Replace**
+
+**Contribution**
+
+Framework-এর তৃতীয় stage নির্ধারণ করে।
+
+---
+
+### 24.
+
+> **C = Continue**
+
+**Contribution**
+
+Framework-এর শেষ stage নির্ধারণ করে।
+
+---
+
+### 25.
+
+> **STEP 4**
+
+**Contribution**
+
+Workflow-এর পরবর্তী optimisation phase শুরু করে।
+
+---
+
+### 26.
+
+> **Optimise implementation.**
+
+**Contribution**
+
+Product design সম্পন্ন হওয়ার পরে refinement করতে বলে।
+
+---
+
+### 27.
+
+> **Simplify everything.**
+
+**Contribution**
+
+Optimisation-এর প্রথম objective নির্ধারণ করে।
+
+---
+
+### 28.
+
+> **Replace complexity with templates.**
+
+**Contribution**
+
+Simplification কীভাবে করতে হবে তা নির্দেশ করে।
+
+---
+
+### 29.
+
+> **Reduce thinking wherever possible.**
+
+**Contribution**
+
+Implementation friction কমানোর ধারাবাহিক নির্দেশনা দেয়।
+
+---
+
+### 30.
+
+> **Keep asking**
+
+**Contribution**
+
+Continuous optimisation loop তৈরি করে।
+
+---
+
+### 31.
+
+> **STEP 5**
+
+**Contribution**
+
+Workflow-এর value enhancement phase শুরু করে।
+
+---
+
+### 32.
+
+> **Increase perceived value.**
+
+**Contribution**
+
+Core implementation সম্পন্ন হওয়ার পরে value optimisation করতে বলে।
+
+---
+
+### 33.
+
+> **Recommend premium bonuses without making the product unnecessarily larger.**
+
+**Contribution**
+
+Value বৃদ্ধি করার জন্য constrained recommendation দিতে বলে।
+
+---
+
+### 34.
+
+> **STEP 6**
+
+**Contribution**
+
+Workflow-এর monetisation phase শুরু করে।
+
+---
+
+### 35.
+
+> **Design a natural $47–97 upsell.**
+
+**Contribution**
+
+Core product শেষ হওয়ার পরে upsell design করতে বলে।
+
+---
+
+### 36.
+
+> **STEP 7**
+
+**Contribution**
+
+Workflow-এর শেষ design phase শুরু করে।
+
+---
+
+### 37.
+
+> **Design a low-maintenance $17–27/month membership.**
+
+**Contribution**
+
+Upsell-এর পরে continuity product তৈরি করতে বলে।
+
+---
+
+### 38.
+
+> **FINAL REVIEW**
+
+**Contribution**
+
+Workflow-এর validation phase শুরু করে।
+
+---
+
+### 39.
+
+> **Before presenting the final result verify**
+
+**Contribution**
+
+Final output দেওয়ার আগে structured quality assurance বাধ্যতামূলক করে।
+
+---
+
+# 3. সবচেয়ে শক্তিশালী workflow-driving instruction কোনগুলো?
+
+যদি পুরো prompt থেকে সবচেয়ে বেশি প্রভাব ফেলা instruction বেছে নিতে হয়, তাহলে এগুলোই মূল driver—
+
+1. **Proceed one step at a time.**
+2. **Never continue until I approve.**
+3. **STEP 1**
+4. **STEP 2**
+5. **STEP 3**
+6. **STEP 4**
+7. **STEP 5**
+8. **STEP 6**
+9. **STEP 7**
+10. **After I answer—**
+11. **Before presenting the final result verify**
+
+এই ১১টি নির্দেশনাই মূলত ChatGPT-কে একটি **stateful, gated, sequential, dependency-driven workflow** অনুসরণ করতে বাধ্য করে। বাকি নির্দেশনাগুলো সেই workflow-এর প্রতিটি ধাপের কাজ, আউটপুট কাঠামো এবং গুণগত মান নির্ধারণ করে।

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pin Image Prompt - SPM</title>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID_HERE'); 
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #ef6c57; 
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+            --text-dark: #333;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            color: var(--primary-color);
+            font-family: sans-serif;
+            font-weight: 900;
+            font-size: 16px;
+            width: 42px;
+            height: 30px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .page-title-area {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+        }
+
+        .page-title-area h1 {
+            font-size: 28px;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .questionnaire-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            margin-bottom: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .q-group {
+            margin-bottom: 30px;
+        }
+
+        .q-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #2c3e50;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .q-options {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+
+        .dynamic-input {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
+            resize: vertical;
+            transition: all 0.3s;
+            background: #fff;
+        }
+
+        .dynamic-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(239, 108, 87, 0.1);
+        }
+
+        .prompt-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            margin-bottom: 50px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: #f8f9fa;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .prompt-header h2 {
+            font-size: 18px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .copy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .prompt-content {
+            padding: 35px;
+            background: var(--code-bg);
+            color: var(--code-text);
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.7;
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid var(--border-color);
+            background: #fff;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            .nav-links { font-size: 13px; gap: 15px; }
+            .prompt-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .copy-btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <div class="logo-box">SPM</div> শিব প্রসাদ মুখার্জি 
+        </div>
+        <div class="nav-links">
+            <a href="https://spmukherjee.co.in/" target="_blank"><i class="fa-regular fa-user"></i> শিবা</a>
+            <a href="https://spm.graphy.com/s/store" target="_blank">শিবার কালেকশন</a>
+        </div>
+    </header>
+
+    <div class="page-title-area">
+        <h1>The Pin Image Prompt</h1>
+    </div>
+
+    <div class="container">
+        <!-- Questionnaire Section -->
+        <div class="questionnaire-card">
+            <div class="q-group">
+                <label>1. What is the niche of your product?</label>
+                <textarea id="input1" class="dynamic-input" placeholder="Answer Here..." oninput="updatePrompt()"></textarea>
+            </div>
+
+            <div class="q-group">
+                <label>2. What is the name of your product?</label>
+                <textarea id="input2" class="dynamic-input" placeholder="Answer Here..." oninput="updatePrompt()"></textarea>
+            </div>
+
+            <div class="q-group">
+                <label>3. Do you have an image of your product you want me to add in the pin image? Yes (upload it now), or just say: No.</label>
+                <textarea id="input3" class="dynamic-input" placeholder="Answer Here..." oninput="updatePrompt()"></textarea>
+            </div>
+
+            <div class="q-group">
+                <label>4. Do you want a price/discount/coupon code on your pin image? If so tell me exactly what you want or answer: No.</label>
+                <textarea id="input4" class="dynamic-input" placeholder="Answer Here..." oninput="updatePrompt()"></textarea>
+            </div>
+
+            <div class="q-group">
+                <label>5. Chose the core category that best describes your main goal:</label>
+                <ul class="q-options">
+                    <li>Brand awareness</li><li>Product awareness</li><li>Audience growth</li><li>Followers</li><li>Engagement</li><li>Saves</li><li>Website traffic</li><li>Blog traffic</li><li>Lead generation</li><li>Email-list growth</li><li>Sales</li><li>Ecommerce sales</li><li>Affiliate commissions</li><li>Appointments and bookings</li><li>Local business growth</li><li>Product launches</li><li>Promotions and discounts</li><li>Content distribution</li><li>Authority and trust</li><li>Product education</li><li>Market research</li><li>Trend discovery</li><li>Retargeting</li><li>Customer retention</li><li>Personal inspiration</li><li>Planning and organization</li><li>Learning</li><li>Shopping and product discovery</li>
+                </ul>
+                <textarea id="input5" class="dynamic-input" placeholder="Answer Here..." oninput="updatePrompt()"></textarea>
+            </div>
+
+            <div class="q-group">
+                <label>6. What style of pin you want?</label>
+                <ul class="q-options">
+                    <li>Bubbly, punchy, colorful</li><li>Calm, light, serene</li><li>Modern minimal</li><li>Modern luxury</li><li>Modern editorial</li><li>Modern commercial</li><li>Modern geometric</li><li>Futuristic, neon</li><li>Luxury and elegant</li><li>Minimal and clean</li><li>Bold editorial</li><li>Earthy and organic</li><li>Retro and vintage</li><li>Playful and illustrated</li><li>Soft feminine</li><li>Dark and moody</li><li>Cozy lifestyle</li><li>Collage and scrapbook</li><li>Rustic and handmade</li><li>Product-focused commercial</li>
+                </ul>
+                <textarea id="input6" class="dynamic-input" placeholder="Answer Here..." oninput="updatePrompt()"></textarea>
+            </div>
+
+            <div class="q-group">
+                <label>7. What image size do you want?:</label>
+                <ul class="q-options">
+                    <li>1000 × 1500 pixels — Standard Vertical / Portrait Pin or 2:3 Pin</li>
+                    <li>1000 × 1000 pixels — Square 1:1 Pin</li>
+                    <li>1080 × 1920 pixels — Full-Screen Vertical / Story-Style Pin / 9:16 Pin</li>
+                </ul>
+                <textarea id="input7" class="dynamic-input" placeholder="Answer Here..." oninput="updatePrompt()"></textarea>
+            </div>
+
+            <div class="q-group">
+                <label>8. Any additional specifications you want to see on your image? Yes (add it now), or just say: No.</label>
+                <textarea id="input8" class="dynamic-input" placeholder="Answer Here..." oninput="updatePrompt()"></textarea>
+            </div>
+        </div>
+
+        <!-- Prompt Card -->
+        <div class="prompt-card">
+            <div class="prompt-header">
+                <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Prompt Output</h2>
+                <button class="copy-btn" onclick="copyPrompt(this)">
+                    <i class="fa-regular fa-copy"></i> Copy Prompt
+                </button>
+            </div>
+            <pre class="prompt-content" id="displayPrompt"></pre>
+        </div>
+    </div>
+
+    <!-- Hidden Template -->
+    <div id="promptTemplate" style="display:none;">You are a professional Pin image creator and designer.
+Your job is to create stuffing Pin images.
+Hard Rule: You must follow this prompt to the T using the answers provided in this prompt to create the requested Pin image.
+
+1. What is the niche of your product?
+Answer Here:
+[1. What is the niche of your product?]
+
+2. What is the name of your product?
+Answer Here:
+[2. What is the name of your product?]
+
+3. Do you have an image of your product you want me to add in the pin image? Yes (upload it now), or just say: No.
+Answer Here:
+[3. Do you have an image of your product you want me to add in the pin image? Yes (upload it now), or just say: No.]
+
+4. Do you want a price/discount/coupon code on your pin image? If so tell me exactly what you want or answer: No.
+Answer Here:
+[4. Do you want a price/discount/coupon code on your pin image? If so tell me exactly what you want or answer: No.]
+
+5. Chose the core category that best describes your main goal:
+
+* Brand awareness
+* Product awareness
+* Audience growth
+* Followers
+* Engagement
+* Saves
+* Website traffic
+* Blog traffic
+* Lead generation
+* Email-list growth
+* Sales
+* Ecommerce sales
+* Affiliate commissions
+* Appointments and bookings
+* Local business growth
+* Product launches
+* Promotions and discounts
+* Content distribution
+* Authority and trust
+* Product education
+* Market research
+* Trend discovery
+* Retargeting
+* Customer retention
+* Personal inspiration
+* Planning and organization
+* Learning
+* Shopping and product discovery
+Answer Here:
+[5. Chose the core category that best describes your main goal:]
+
+6. What style of pin you want?
+
+* Bubbly, punchy, colorful
+* Calm, light, serene
+* Modern minimal
+* Modern luxury
+* Modern editorial
+* Modern commercial
+* Modern geometric
+* Futuristic, neon
+* Luxury and elegant
+* Minimal and clean
+* Bold editorial
+* Earthy and organic
+* Retro and vintage
+* Playful and illustrated
+* Soft feminine
+* Dark and moody
+* Cozy lifestyle
+* Collage and scrapbook
+* Rustic and handmade
+* Product-focused commercial
+Answer Here:
+[6. What style of pin you want?]
+
+7. What image size do you want?:
+
+* 1000 × 1500 pixels — Standard Vertical / Portrait Pin or 2:3 Pin
+* 1000 × 1000 pixels — Square 1:1 Pin
+* 1080 × 1920 pixels — Full-Screen Vertical / Story-Style Pin / 9:16 Pin
+Answer Here:
+[7. What image size do you want?:]
+
+8. Any additional specifications you want to see on your image? Yes (add it now), or just say: No.
+Answer Here:
+[8. Any additional specifications you want to see on your image? Yes (add it now), or just say: No.]</div>
+
+    <footer>
+        <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const template = document.getElementById('promptTemplate').innerText;
+        const display = document.getElementById('displayPrompt');
+
+        function updatePrompt() {
+            let currentText = template;
+            
+            // Map inputs to placeholders
+            const replacements = {
+                "[1. What is the niche of your product?]": document.getElementById('input1').value,
+                "[2. What is the name of your product?]": document.getElementById('input2').value,
+                "[3. Do you have an image of your product you want me to add in the pin image? Yes (upload it now), or just say: No.]": document.getElementById('input3').value,
+                "[4. Do you want a price/discount/coupon code on your pin image? If so tell me exactly what you want or answer: No.]": document.getElementById('input4').value,
+                "[5. Chose the core category that best describes your main goal:]": document.getElementById('input5').value,
+                "[6. What style of pin you want?]": document.getElementById('input6').value,
+                "[7. What image size do you want?:]": document.getElementById('input7').value,
+                "[8. Any additional specifications you want to see on your image? Yes (add it now), or just say: No.]": document.getElementById('input8').value
+            };
+
+            for (const [placeholder, value] of Object.entries(replacements)) {
+                // If value is empty, keep the bracketed placeholder text as per request to keep as is
+                const finalValue = value.trim() === "" ? placeholder : value;
+                currentText = currentText.replace(placeholder, finalValue);
+            }
+
+            display.innerText = currentText;
+        }
+
+        function copyPrompt(btn) {
+            const text = display.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const oldHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                btn.style.background = '#2ecc71';
+                setTimeout(() => {
+                    btn.innerHTML = oldHTML;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+
+        // Initialize display
+        window.onload = updatePrompt;
+    </script>
+
+</body>
+</html>

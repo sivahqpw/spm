@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Prompt Template Generator - SPM</title>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID_HERE'); 
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #ef6c57; 
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+            --text-dark: #333;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            color: var(--primary-color);
+            font-family: sans-serif;
+            font-weight: 900;
+            font-size: 16px;
+            width: 42px;
+            height: 30px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .page-title-area {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+        }
+
+        .page-title-area h1 {
+            font-size: 26px;
+            color: var(--text-dark);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .input-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            margin-bottom: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .q-group {
+            margin-bottom: 25px;
+        }
+
+        .q-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-size: 16px;
+        }
+
+        .dynamic-input {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
+            resize: vertical;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .dynamic-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(239, 108, 87, 0.1);
+        }
+
+        .prompt-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            margin-bottom: 50px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: #f8f9fa;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .prompt-header h2 {
+            font-size: 18px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .copy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .prompt-content {
+            padding: 35px;
+            background: var(--code-bg);
+            color: var(--code-text);
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.7;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid var(--border-color);
+            background: #fff;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            .nav-links { font-size: 13px; gap: 15px; }
+            .prompt-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .copy-btn { width: 100%; justify-content: center; }
+            .page-title-area h1 { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <div class="logo-box">SPM</div> শিব প্রসাদ মুখার্জি 
+        </div>
+        <div class="nav-links">
+            <a href="https://spmukherjee.co.in/" target="_blank"><i class="fa-regular fa-user"></i> শিবা</a>
+            <a href="https://spm.graphy.com/s/store" target="_blank"><i class="fa-solid fa-store"></i> কালেকশন</a>
+        </div>
+    </header>
+
+    <div class="page-title-area">
+        <h1>Create a structured questionnaire-style AI prompt template.</h1>
+    </div>
+
+    <div class="container">
+        <!-- Input Section -->
+        <div class="input-card">
+            <div class="q-group">
+                <label>[TASK]</label>
+                <textarea id="taskInput" class="dynamic-input" placeholder="e.g. designing a logo"></textarea>
+            </div>
+            <div class="q-group">
+                <label>[OUTPUT]</label>
+                <textarea id="outputInput" class="dynamic-input" placeholder="e.g. logo"></textarea>
+            </div>
+        </div>
+
+        <!-- Prompt Card #1 -->
+        <div class="prompt-card">
+            <div class="prompt-header">
+                <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Prompt Template Generator</h2>
+                <button class="copy-btn" onclick="copyDynamicPrompt('template1', this)">
+                    <i class="fa-regular fa-copy"></i> Copy Prompt
+                </button>
+            </div>
+            <pre class="prompt-content" id="template1">Create a structured questionnaire-style AI prompt template for [TASK].
+
+Include numbered questions, multiple-choice options wherever appropriate, and "Answer Here:" fields.
+
+The template should collect all the information the AI needs to produce a high-quality [OUTPUT].
+
+Whenever applicable, provide comprehensive, mutually exclusive, and collectively exhaustive (MECE) answer options so the user has all relevant choices without significant omissions. Use predefined options instead of free-text fields whenever possible, and include free-text fields only when necessary for information that cannot reasonably be covered by predefined options.
+
+Organize the questions in a logical order, avoid redundant questions, and ensure the completed questionnaire provides everything required for the AI to generate the best possible [OUTPUT].</pre>
+        </div>
+
+        <!-- Prompt Card #2 -->
+        <div class="prompt-card">
+            <div class="prompt-header">
+                <h2><i class="fa-solid fa-circle-info"></i> Task and Output Examples</h2>
+                <button class="copy-btn" onclick="copyPrompt('prompt2', this)">
+                    <i class="fa-regular fa-copy"></i> Copy Guide
+                </button>
+            </div>
+            <pre class="prompt-content" id="prompt2">TASK can be anything:
+
+designing a logo
+creating a Pinterest Pin
+writing a sales page
+generating a YouTube script
+building a website
+
+OUTPUT is the final deliverable:
+logo
+Pinterest Pin
+eBook
+landing page
+email sequence
+
+For example:
+
+TASK: designing a logo
+OUTPUT: logo
+
+or
+
+TASK: creating a Pinterest Pin
+OUTPUT: Pinterest Pin</pre>
+        </div>
+    </div>
+
+    <footer>
+        <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function copyDynamicPrompt(templateId, btn) {
+            const taskVal = document.getElementById('taskInput').value.trim() || "[TASK]";
+            const outputVal = document.getElementById('outputInput').value.trim() || "[OUTPUT]";
+            
+            let text = document.getElementById(templateId).innerText;
+            
+            // Replace placeholders
+            text = text.replace(/\[TASK\]/g, taskVal);
+            text = text.replace(/\[OUTPUT\]/g, outputVal);
+
+            navigator.clipboard.writeText(text).then(() => {
+                const oldHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                btn.style.background = '#2ecc71';
+                setTimeout(() => {
+                    btn.innerHTML = oldHTML;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+
+        function copyPrompt(elementId, btn) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const oldHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                btn.style.background = '#2ecc71';
+                setTimeout(() => {
+                    btn.innerHTML = oldHTML;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+    </script>
+
+</body>
+</html>
