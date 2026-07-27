@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Title Genie</title>
+    <style>
+        /* Design Strategy: Professional, Reliable, and Clean */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #2563eb;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --success-green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-slate);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: var(--primary-slate);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Prompt Display Boxes */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 32px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid var(--border-color);
+            line-height: 1.6;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        /* Interaction Elements */
+        .copy-btn {
+            background: var(--success-green);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #059669;
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.9rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.9rem; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Course Title Genie</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>নিচে আপনার পদ্ধতির নাম (Method Name) লিখুন। এটি আপনার কোর্সের জন্য আকর্ষণীয় শিরোনাম তৈরি করতে দুটি আলাদা প্রম্পট জেনারেট করবে।</p>
+        </div>
+
+        <div class="input-section">
+            <label for="methodInput">আপনার পদ্ধতির নাম দিন (Method Name):</label>
+            <input type="text" id="methodInput" placeholder="উদা: Clarity-to-Content Engine" oninput="updatePrompts()">
+        </div>
+
+        <!-- Prompt 1 Wrapper -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>PROMPT #1: Translation & Localization</h3>
+                    <button class="copy-btn" onclick="copyToClipboard('promptDisplay1')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="promptDisplay1"></div>
+            </div>
+        </div>
+
+        <!-- Prompt 2 Wrapper -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>PROMPT #2: Strategy & Naming</h3>
+                    <button class="copy-btn" onclick="copyToClipboard('promptDisplay2')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="promptDisplay2"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function updatePrompts() {
+            const methodName = document.getElementById('methodInput').value.trim() || "[Method Name]";
+            
+            // Prompt 1 Template
+            const prompt1 = `Please translate it, as much word by word as possible, in the most spontaneous and natural sounding modern, everyday conversational Bengali as spoken in Kolkata, West Bengal, India that can be understood by an 21 year old but contains the international standards of language.
+
+Strict Rules:
+Must subtly reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures, with balanced pacing and no abrupt or overly casual wording — without slang, regional grammar, or loss of conservative authority.
+
+• Always use the formal “আপনি”, not the informal “তুমি.” The address is formal, but the tone should remain warm, conversational, and approachable.
+• The voice should be bold, direct, also should feel like a close friend and a trusted authority, speaking one-on-one with the reader in a natural, face-to-face style.
+
+Here's the text to translate:
+
+${methodName}: From Scratch Step-by-Step`;
+
+            // Prompt 2 Template
+            const prompt2 = `ROLE
+
+You are an expert Brand Strategist, Course Naming Specialist, and Marketing Copywriter.
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do not translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+TASK
+
+Generate a professional course title for the following method.
+
+Method Name:
+
+${methodName}
+
+MANDATORY REQUIREMENTS
+
+Every generated course title must include the exact phrases:
+
+1, Step-by-Step
+2, From Scratch
+
+---`;
+
+            document.getElementById('promptDisplay1').innerText = prompt1;
+            document.getElementById('promptDisplay2').innerText = prompt2;
+        }
+
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            if (!text) return;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+
+        // Initial call to set placeholders
+        updatePrompts();
+    </script>
+</body>
+</html>
