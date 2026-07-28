@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide Creator Pro - Full Control</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --dark-bg: #161b22;
+            --card-bg: rgba(35, 41, 49, 0.95);
+            --footer-text: #39ff14;
+            --footer-border: #39ff14;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: #0d1117;
+            color: white;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 420px;
+            background: #161b22;
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 1px solid #30363d;
+            z-index: 100;
+        }
+
+        h2 { font-size: 18px; color: var(--footer-text); margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .section { margin-bottom: 18px; border-bottom: 1px solid #222; padding-bottom: 15px; }
+        label { display: block; font-size: 11px; color: #8b949e; margin-bottom: 8px; text-transform: uppercase; font-weight: bold; }
+        
+        input[type="text"], textarea {
+            width: 100%; padding: 10px; background: #0d1117; border: 1px solid #30363d; color: white; border-radius: 6px; box-sizing: border-box; font-size: 13px; margin-bottom: 10px;
+        }
+
+        .row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .row span { font-size: 10px; color: var(--footer-text); min-width: 80px; }
+        input[type="range"] { flex-grow: 1; accent-color: var(--footer-text); cursor: pointer; }
+        input[type="color"] { background: none; border: none; width: 40px; height: 30px; cursor: pointer; padding: 0; }
+
+        /* Alignment Buttons */
+        .align-row { display: flex; gap: 4px; flex-grow: 1; }
+        .align-btn { 
+            background: #21262d; border: 1px solid #30363d; color: white; padding: 6px; 
+            font-size: 10px; cursor: pointer; border-radius: 4px; flex: 1; text-align: center;
+        }
+        .align-btn.active { background: var(--footer-text); color: black; border-color: var(--footer-text); font-weight: bold; }
+
+        .btn-group { display: flex; gap: 8px; margin-bottom: 20px; }
+        .btn {
+            flex: 1; padding: 12px; background: #21262d; border: 1px solid #30363d;
+            color: white; cursor: pointer; border-radius: 6px; font-size: 12px; font-weight: bold;
+        }
+        .btn.active { background: var(--footer-text); color: black; border-color: var(--footer-text); }
+
+        .download-btn {
+            width: 100%; padding: 18px; background: #238636; color: white;
+            border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px;
+        }
+
+        /* --- PREVIEW CANVAS --- */
+        .preview-area {
+            flex-grow: 1; background: #010409; display: flex; align-items: center; justify-content: center; overflow: auto; padding: 50px;
+        }
+
+        .scaler { transform: scale(0.45); transform-origin: center; }
+
+        #canvas {
+            width: 1080px; height: 1080px; background: var(--dark-bg); background-size: cover; background-position: center;
+            display: flex; flex-direction: column; padding: 60px; box-sizing: border-box; position: relative;
+        }
+
+        #canvas.story { height: 1920px; }
+        #overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1; }
+        .content { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; }
+
+        .header-box {
+            text-align: center; border: 2px solid rgba(255,255,255,0.2); background: var(--card-bg); padding: 20px; border-radius: 12px; margin-bottom: 40px;
+        }
+
+        .main-row { display: flex; gap: 30px; flex-grow: 1; overflow: hidden; }
+        #canvas.story .main-row { flex-direction: column; align-items: center; }
+
+        /* FIXED RATIO LOCK */
+        .img-container {
+            border: 3px dashed rgba(255,255,255,0.2); border-radius: 15px; overflow: hidden; background: #000; flex-shrink: 0;
+            width: 500px; height: 500px; /* 1:1 for Post */
+        }
+        #canvas.story .img-container { width: 960px; height: 540px; } /* 16:9 for Story */
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        .text-side { flex-grow: 1; display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+        #canvas.story .text-side { width: 100%; }
+
+        /* Flexbox Alignment Boxes */
+        .v-box, .c-box {
+            background: var(--card-bg); padding: 30px; border-radius: 15px;
+            display: flex; flex-direction: column; word-break: break-word; white-space: pre-wrap;
+        }
+        .v-box { flex: 2.5; border: 2px solid rgba(255,255,255,0.2); font-weight: bold; line-height: 1.2; }
+        .c-box { flex: 1; border: 2px dashed rgba(255,255,255,0.2); color: #ccc; }
+
+        .footer-bar {
+            margin-top: 40px; border: 5px solid var(--footer-border); padding: 35px; border-radius: 20px; text-align: center; font-weight: 900; color: var(--footer-text);
+            background: rgba(0,0,0,0.8); box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Designer Settings</h2>
+        
+        <div class="btn-group">
+            <button class="btn active" onclick="changeMode('post', this)">POST (1:1 Img)</button>
+            <button class="btn" onclick="changeMode('story', this)">STORY (16:9 Img)</button>
+        </div>
+
+        <div class="section">
+            <label>1. Background</label>
+            <input type="file" onchange="upload(event, 'bg')">
+            <div class="row"><span>Dimness</span><input type="range" min="0" max="1" step="0.1" value="0.5" oninput="updateStyle('overlay', 'background', `rgba(0,0,0,${this.value})`)"></div>
+        </div>
+
+        <div class="section">
+            <label>2. Header</label>
+            <input type="text" id="in-h" value="ফাইনাল স্লাইড" oninput="sync()">
+            <div class="row"><span>Font Size</span><input type="range" min="20" max="80" value="36" oninput="updateStyle('v-h', 'fontSize', this.value+'px')"></div>
+        </div>
+
+        <div class="section">
+            <label>3. Value Box (Top)</label>
+            <textarea id="in-v" rows="2" oninput="sync()">আপনার ভ্যালু প্রদান এখানে লিখুন</textarea>
+            <div class="row"><span>Font Size</span><input type="range" min="20" max="120" value="50" oninput="updateStyle('v-v', 'fontSize', this.value+'px')"></div>
+            <div class="row"><span>Box Height</span><input type="range" min="0.5" max="6" step="0.1" value="2.5" oninput="updateStyle('v-v', 'flex', this.value)"></div>
+            <div class="row">
+                <span>Vertical</span>
+                <div class="align-row">
+                    <button class="align-btn" onclick="setAlign('v-v', 'justifyContent', 'flex-start', this)">Top</button>
+                    <button class="align-btn active" onclick="setAlign('v-v', 'justifyContent', 'center', this)">Mid</button>
+                    <button class="align-btn" onclick="setAlign('v-v', 'justifyContent', 'flex-end', this)">Bot</button>
+                </div>
+            </div>
+            <div class="row">
+                <span>Horizontal</span>
+                <div class="align-row">
+                    <button class="align-btn" onclick="setAlign('v-v', 'alignItems', 'flex-start', this, 'left')">Left</button>
+                    <button class="align-btn active" onclick="setAlign('v-v', 'alignItems', 'center', this, 'center')">Center</button>
+                    <button class="align-btn" onclick="setAlign('v-v', 'alignItems', 'flex-end', this, 'right')">Right</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <label>4. CTA Box (Bottom)</label>
+            <textarea id="in-c" rows="2" oninput="sync()">স্পষ্ট কল-টু-অ্যাকশন</textarea>
+            <div class="row"><span>Font Size</span><input type="range" min="15" max="60" value="26" oninput="updateStyle('v-c', 'fontSize', this.value+'px')"></div>
+            <div class="row">
+                <span>Vertical</span>
+                <div class="align-row">
+                    <button class="align-btn" onclick="setAlign('v-c', 'justifyContent', 'flex-start', this)">Top</button>
+                    <button class="align-btn active" onclick="setAlign('v-c', 'center', this)">Mid</button>
+                    <button class="align-btn" onclick="setAlign('v-c', 'flex-end', this)">Bot</button>
+                </div>
+            </div>
+            <div class="row">
+                <span>Horizontal</span>
+                <div class="align-row">
+                    <button class="align-btn" onclick="setAlign('v-c', 'alignItems', 'flex-start', this, 'left')">Left</button>
+                    <button class="align-btn active" onclick="setAlign('v-c', 'center', this, 'center')">Center</button>
+                    <button class="align-btn" onclick="setAlign('v-c', 'alignItems', 'flex-end', this, 'right')">Right</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <label>5. Footer Bar</label>
+            <input type="text" id="in-l" value="ল্যান্ডিং পেইজ লিঙ্ক" oninput="sync()">
+            <div class="row"><span>Font Size</span><input type="range" min="20" max="80" value="42" oninput="updateStyle('v-l', 'fontSize', this.value+'px')"></div>
+            <div class="row">
+                <span>Colors</span>
+                <input type="color" value="#39ff14" oninput="updateVar('--footer-text', this.value)">
+                <input type="color" value="#39ff14" oninput="updateVar('--footer-border', this.value)">
+            </div>
+        </div>
+
+        <div class="section">
+            <label>6. Main Image</label>
+            <input type="file" onchange="upload(event, 'main')">
+        </div>
+
+        <button class="download-btn" onclick="download()">Generate Image</button>
+    </div>
+
+    <div class="preview-area">
+        <div class="scaler" id="zoom">
+            <div id="canvas">
+                <div id="overlay"></div>
+                <div class="content">
+                    <div class="header-box" id="v-h" style="font-size: 36px;">ফাইনাল স্লাইড</div>
+                    <div class="main-row">
+                        <div class="img-container" id="img-box">
+                            <img id="v-img" src="https://via.placeholder.com/800/111/fff?text=Photo">
+                        </div>
+                        <div class="text-side">
+                            <div class="v-box" id="v-v" style="font-size: 50px; flex: 2.5; justify-content: center; align-items: center; text-align: center;">আপনার ভ্যালু প্রদান এখানে লিখুন</div>
+                            <div class="c-box" id="v-c" style="font-size: 26px; flex: 1; justify-content: center; align-items: center; text-align: center;">স্পষ্ট কল-টু-অ্যাকশন</div>
+                        </div>
+                    </div>
+                    <div class="footer-bar" id="v-l" style="font-size: 42px;">ল্যান্ডিং পেইজ লিঙ্ক</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sync() {
+            document.getElementById('v-h').innerText = document.getElementById('in-h').value;
+            document.getElementById('v-v').innerText = document.getElementById('in-v').value;
+            document.getElementById('v-c').innerText = document.getElementById('in-c').value;
+            document.getElementById('v-l').innerText = document.getElementById('in-l').value;
+        }
+
+        function updateStyle(id, prop, val) { document.getElementById(id).style[prop] = val; }
+        function updateVar(name, val) { document.documentElement.style.setProperty(name, val); }
+
+        function setAlign(targetId, prop, val, btn, textDir = null) {
+            const target = document.getElementById(targetId);
+            target.style[prop] = val;
+            if(textDir) target.style.textAlign = textDir;
+            
+            // Toggle UI state
+            btn.parentElement.querySelectorAll('.align-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function upload(event, type) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                if(type === 'bg') document.getElementById('canvas').style.backgroundImage = `url('${reader.result}')`;
+                else document.getElementById('out-img' /* safety placeholder */ , document.getElementById('v-img').src = reader.result);
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function changeMode(mode, btn) {
+            const canvas = document.getElementById('canvas');
+            const zoom = document.getElementById('zoom');
+            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            if(mode === 'story') {
+                canvas.classList.add('story');
+                zoom.style.transform = 'scale(0.32)';
+            } else {
+                canvas.classList.remove('story');
+                zoom.style.transform = 'scale(0.5)';
+            }
+        }
+
+        async function download() {
+            const el = document.getElementById('canvas');
+            const zoom = document.getElementById('zoom');
+            const old = zoom.style.transform;
+            zoom.style.transform = 'none';
+            
+            await new Promise(r => setTimeout(r, 150));
+
+            const canvas = await html2canvas(el, { scale: 2, useCORS: true });
+            const link = document.createElement('a');
+            link.download = `slide-pro-${Date.now()}.png`;
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+            
+            zoom.style.transform = old;
+        }
+
+        window.onload = () => document.getElementById('zoom').style.transform = 'scale(0.5)';
+    </script>
+</body>
+</html>
